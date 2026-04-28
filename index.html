@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ralph</title>
+<title>Ralph — UK referral links, fairly shared</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
   :root {
     --navy:       #185FA5;
@@ -22,7 +23,6 @@
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   html { scroll-behavior: smooth; }
 
   body {
@@ -34,379 +34,251 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* NAV */
-  nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px 40px;
-    border-bottom: 1px solid var(--border);
-    background: var(--cream);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  .nav-logo {
-    font-family: var(--serif);
-    font-size: 26px;
-    font-weight: 400;
-    color: var(--navy-deep);
-    letter-spacing: 0.02em;
-    text-decoration: none;
-  }
-  .nav-links { display: flex; gap: 28px; align-items: center; }
-  .nav-links a {
-    font-size: 14px;
-    color: var(--muted);
-    text-decoration: none;
-    font-weight: 400;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--navy); }
-  .nav-cta {
-    font-size: 13px;
-    background: var(--navy);
-    color: var(--navy-light) !important;
-    padding: 8px 18px;
-    border-radius: 6px;
-    font-weight: 500 !important;
-    transition: background 0.2s !important;
-  }
-  .nav-cta:hover { background: var(--navy-deep) !important; color: white !important; }
-
-  /* HERO */
-  .hero {
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 88px 40px 72px;
-    text-align: center;
-  }
-  .hero-label {
-    display: inline-block;
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--navy);
-    background: var(--navy-light);
-    padding: 5px 14px;
-    border-radius: 20px;
-    margin-bottom: 28px;
-  }
-  .hero h1 {
-    font-family: var(--serif);
-    font-size: 54px;
-    font-weight: 400;
-    line-height: 1.15;
-    letter-spacing: -0.01em;
-    color: var(--navy-deep);
-    margin-bottom: 22px;
-  }
-  .hero h1 em {
-    font-style: italic;
-    color: var(--navy);
-  }
-  .hero p {
-    font-size: 18px;
-    font-weight: 300;
-    color: var(--muted);
-    max-width: 500px;
-    margin: 0 auto 36px;
-    line-height: 1.7;
-  }
-  .hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-  .btn-primary {
-    font-family: var(--sans);
-    font-size: 14px;
-    font-weight: 500;
-    background: var(--navy);
-    color: var(--navy-light);
-    padding: 13px 28px;
-    border-radius: 7px;
-    text-decoration: none;
-    transition: background 0.2s;
-    letter-spacing: 0.01em;
-  }
-  .btn-primary:hover { background: var(--navy-deep); }
-  .btn-secondary {
-    font-family: var(--sans);
-    font-size: 14px;
-    font-weight: 400;
-    border: 1px solid var(--border);
-    color: var(--navy);
-    padding: 13px 28px;
-    border-radius: 7px;
-    text-decoration: none;
-    transition: border-color 0.2s, background 0.2s;
-  }
-  .btn-secondary:hover { border-color: var(--navy); background: var(--navy-light); }
-
-  /* DIVIDER LINE */
-  .rule {
-    border: none;
-    border-top: 1px solid var(--border);
-    max-width: 600px;
-    margin: 0 auto;
-  }
-
-  /* HOW IT WORKS */
-  .how {
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 72px 40px;
-  }
-  .section-label {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--navy);
-    margin-bottom: 12px;
-  }
-  .how h2 {
-    font-family: var(--serif);
-    font-size: 34px;
-    font-weight: 400;
-    color: var(--navy-deep);
-    margin-bottom: 44px;
-    line-height: 1.2;
-  }
-  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
-  .step { position: relative; }
-  .step-num {
-    font-family: var(--serif);
-    font-size: 38px;
-    font-weight: 400;
-    color: var(--navy-light);
-    line-height: 1;
-    margin-bottom: 12px;
-  }
-  .step h3 {
-    font-family: var(--serif);
-    font-size: 19px;
-    font-weight: 500;
-    color: var(--navy-deep);
-    margin-bottom: 8px;
-  }
-  .step p {
-    font-size: 14px;
-    color: var(--muted);
-    line-height: 1.65;
-    font-weight: 300;
-  }
-  .step-connector {
-    position: absolute;
-    top: 18px;
-    right: -18px;
-    color: var(--border);
-    font-size: 20px;
-  }
-
-  /* FAIRNESS BLOCK */
-  .fairness {
+  /* DESKTOP NUDGE */
+  #desktop-nudge {
+    display: none;
     background: var(--navy-deep);
-    margin: 0;
-    padding: 72px 40px;
-  }
-  .fairness-inner {
-    max-width: 760px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: center;
-  }
-  .fairness .section-label { color: var(--navy-light); opacity: 0.6; }
-  .fairness h2 {
-    font-family: var(--serif);
-    font-size: 34px;
-    font-weight: 400;
-    color: var(--cream);
-    line-height: 1.2;
-    margin-top: 10px;
-    margin-bottom: 16px;
-  }
-  .fairness p {
-    font-size: 15px;
-    color: rgba(230, 241, 251, 0.7);
-    line-height: 1.7;
-    font-weight: 300;
-  }
-  .fairness-points { display: flex; flex-direction: column; gap: 16px; }
-  .fairness-point {
-    display: flex;
-    gap: 14px;
-    align-items: flex-start;
-    padding: 16px;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 8px;
-  }
-  .fairness-icon {
-    width: 32px;
-    height: 32px;
-    border-radius: 6px;
-    background: rgba(55, 138, 221, 0.25);
-    display: flex;
+    position: fixed;
+    inset: 0;
+    z-index: 200;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
   }
-  .fairness-icon svg { width: 16px; height: 16px; fill: var(--navy-mid); }
-  .fairness-point-text h4 {
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--cream);
-    margin-bottom: 3px;
+  #desktop-nudge.visible { display: flex; }
+  .nudge-inner {
+    display: flex; gap: 60px; align-items: center;
+    max-width: 720px; padding: 60px 40px;
   }
-  .fairness-point-text p {
-    font-size: 12px;
-    color: rgba(230, 241, 251, 0.55);
-    line-height: 1.5;
+  .nudge-text h2 {
+    font-family: var(--serif); font-size: 36px; font-weight: 400;
+    color: var(--cream); line-height: 1.2; margin-bottom: 16px;
+  }
+  .nudge-text p {
+    font-size: 15px; color: rgba(230,241,251,0.65);
+    line-height: 1.7; font-weight: 300; margin-bottom: 24px; max-width: 340px;
+  }
+  .nudge-skip {
+    font-size: 13px; color: rgba(230,241,251,0.45); cursor: pointer;
+    text-decoration: underline; background: none; border: none;
+    font-family: var(--sans); padding: 0;
+  }
+  .nudge-skip:hover { color: rgba(230,241,251,0.75); }
+  .nudge-qr { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .nudge-qr-box {
+    background: white; padding: 12px; border-radius: 10px;
+    width: 140px; height: 140px; display: flex; align-items: center; justify-content: center;
+  }
+  .nudge-qr-box canvas, .nudge-qr-box img { width: 116px !important; height: 116px !important; }
+  .nudge-qr p { font-size: 11px; color: rgba(230,241,251,0.4); text-align: center; letter-spacing: 0.05em; text-transform: uppercase; }
+
+  /* NAV */
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 24px; border-bottom: 1px solid var(--border);
+    background: var(--cream); position: sticky; top: 0; z-index: 100;
+  }
+  .nav-logo {
+    font-family: var(--serif); font-size: 26px; font-weight: 400;
+    color: var(--navy-deep); letter-spacing: 0.02em; text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 20px; align-items: center; }
+  .nav-links a { font-size: 14px; color: var(--muted); text-decoration: none; font-weight: 400; }
+  .nav-cta {
+    font-size: 13px; background: var(--navy); color: var(--navy-light) !important;
+    padding: 8px 16px; border-radius: 6px; font-weight: 500 !important;
   }
 
-  /* SUBMIT SECTION */
-  .submit {
-    max-width: 640px;
-    margin: 0 auto;
-    padding: 80px 40px;
-    text-align: center;
+  /* SEARCH HERO */
+  .search-section {
+    padding: 48px 24px 32px; max-width: 600px; margin: 0 auto; text-align: center;
   }
-  .submit h2 {
-    font-family: var(--serif);
-    font-size: 34px;
-    font-weight: 400;
-    color: var(--navy-deep);
-    margin-bottom: 14px;
+  .search-label {
+    display: inline-block; font-size: 11px; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--navy);
+    background: var(--navy-light); padding: 4px 12px; border-radius: 20px; margin-bottom: 20px;
   }
-  .submit p {
-    font-size: 15px;
-    color: var(--muted);
-    margin-bottom: 36px;
-    font-weight: 300;
-    line-height: 1.7;
+  .search-section h1 {
+    font-family: var(--serif); font-size: 42px; font-weight: 400;
+    line-height: 1.15; color: var(--navy-deep); margin-bottom: 10px;
   }
-  .submit-card {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 32px;
-    text-align: left;
+  .search-section h1 em { font-style: italic; color: var(--navy); }
+  .search-section > p {
+    font-size: 16px; font-weight: 300; color: var(--muted); margin-bottom: 28px; line-height: 1.6;
   }
-  .submit-card h3 {
-    font-family: var(--serif);
-    font-size: 20px;
-    font-weight: 400;
-    color: var(--navy-deep);
-    margin-bottom: 6px;
+
+  /* SEARCH BOX */
+  .search-box {
+    display: flex; align-items: center; background: white;
+    border: 1.5px solid var(--border); border-radius: 50px;
+    padding: 6px 6px 6px 20px; gap: 8px;
+    box-shadow: 0 2px 16px rgba(4,44,83,0.06);
+    transition: border-color 0.2s, box-shadow 0.2s;
   }
-  .submit-card p {
-    font-size: 13px;
-    color: var(--muted);
-    margin-bottom: 22px;
-    font-weight: 300;
-    line-height: 1.6;
+  .search-box:focus-within { border-color: var(--navy); box-shadow: 0 2px 20px rgba(24,95,165,0.12); }
+  .search-box input {
+    flex: 1; border: none; outline: none; font-family: var(--sans);
+    font-size: 16px; font-weight: 300; color: var(--text); background: transparent;
   }
-  .mailto-preview {
-    background: var(--cream-mid);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 14px 16px;
-    font-size: 13px;
-    margin-bottom: 20px;
-    font-family: 'DM Sans', monospace;
+  .search-box input::placeholder { color: #9BAFC2; }
+  .mic-btn {
+    width: 42px; height: 42px; border-radius: 50%; background: var(--navy-light);
+    border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; transition: background 0.2s;
   }
-  .mailto-row { display: flex; gap: 8px; margin-bottom: 6px; }
+  .mic-btn svg { width: 18px; height: 18px; fill: var(--navy); }
+  .mic-btn.listening { background: #fee2e2; animation: pulse 1s infinite; }
+  .mic-btn.listening svg { fill: #dc2626; }
+  .search-go-btn {
+    height: 42px; padding: 0 20px; border-radius: 50px;
+    background: var(--navy); color: var(--navy-light); border: none;
+    font-family: var(--sans); font-size: 14px; font-weight: 500;
+    cursor: pointer; flex-shrink: 0; transition: background 0.2s;
+  }
+  .search-go-btn:hover { background: var(--navy-deep); }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+  }
+
+  #search-result { margin-top: 16px; display: none; }
+  #search-result.visible { display: block; }
+  .result-card {
+    background: white; border: 1px solid var(--border);
+    border-radius: 12px; padding: 20px; text-align: left;
+  }
+  .result-brand { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--navy); margin-bottom: 6px; }
+  .result-title { font-family: var(--serif); font-size: 20px; color: var(--navy-deep); margin-bottom: 6px; }
+  .result-desc { font-size: 13px; color: var(--muted); font-weight: 300; margin-bottom: 16px; line-height: 1.5; }
+  .result-link {
+    display: block; width: 100%; text-align: center; background: var(--navy);
+    color: var(--navy-light); font-size: 14px; font-weight: 500;
+    padding: 13px; border-radius: 8px; text-decoration: none; transition: background 0.2s;
+  }
+  .result-link:hover { background: var(--navy-deep); }
+  .result-none { font-size: 14px; color: var(--muted); font-weight: 300; text-align: center; padding: 16px; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 20px; }
+  .chip {
+    font-size: 13px; color: var(--navy); background: white;
+    border: 1px solid var(--border); padding: 6px 14px; border-radius: 20px;
+    cursor: pointer; transition: background 0.15s, border-color 0.15s;
+  }
+  .chip:hover { background: var(--navy-light); border-color: var(--navy); }
+
+  hr.rule { border: none; border-top: 1px solid var(--border); max-width: 560px; margin: 0 auto; }
+
+  /* HOW IT WORKS */
+  .how { max-width: 600px; margin: 0 auto; padding: 56px 24px; }
+  .section-label { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--navy); margin-bottom: 12px; }
+  .how h2 { font-family: var(--serif); font-size: 30px; font-weight: 400; color: var(--navy-deep); margin-bottom: 36px; line-height: 1.2; }
+  .steps { display: flex; flex-direction: column; gap: 0; }
+  .step { display: flex; gap: 16px; align-items: flex-start; padding: 20px 0; border-bottom: 1px solid var(--border); }
+  .step:last-child { border-bottom: none; }
+  .step-num { font-family: var(--serif); font-size: 32px; font-weight: 400; color: var(--navy-light); line-height: 1; flex-shrink: 0; width: 36px; }
+  .step-body h3 { font-family: var(--serif); font-size: 18px; font-weight: 500; color: var(--navy-deep); margin-bottom: 4px; }
+  .step-body p { font-size: 14px; color: var(--muted); font-weight: 300; line-height: 1.6; }
+
+  /* FAIRNESS */
+  .fairness { background: var(--navy-deep); padding: 56px 24px; }
+  .fairness-inner { max-width: 600px; margin: 0 auto; }
+  .fairness .section-label { color: rgba(230,241,251,0.5); margin-bottom: 10px; }
+  .fairness h2 { font-family: var(--serif); font-size: 30px; font-weight: 400; color: var(--cream); line-height: 1.2; margin-bottom: 12px; }
+  .fairness-intro { font-size: 15px; color: rgba(230,241,251,0.6); line-height: 1.7; font-weight: 300; margin-bottom: 28px; }
+  .fairness-points { display: flex; flex-direction: column; gap: 12px; }
+  .fairness-point { display: flex; gap: 14px; align-items: flex-start; padding: 16px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; }
+  .fairness-icon { width: 30px; height: 30px; border-radius: 6px; background: rgba(55,138,221,0.2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 15px; }
+  .fairness-point h4 { font-size: 13px; font-weight: 500; color: var(--cream); margin-bottom: 2px; }
+  .fairness-point p { font-size: 12px; color: rgba(230,241,251,0.5); line-height: 1.5; }
+
+  /* SUBMIT */
+  .submit { max-width: 600px; margin: 0 auto; padding: 56px 24px; }
+  .submit h2 { font-family: var(--serif); font-size: 30px; font-weight: 400; color: var(--navy-deep); margin-bottom: 10px; }
+  .submit > p { font-size: 15px; color: var(--muted); margin-bottom: 28px; font-weight: 300; line-height: 1.7; }
+  .submit-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+  .submit-card h3 { font-family: var(--serif); font-size: 20px; font-weight: 400; color: var(--navy-deep); margin-bottom: 6px; }
+  .submit-card > p { font-size: 13px; color: var(--muted); margin-bottom: 18px; font-weight: 300; line-height: 1.6; }
+  .mailto-preview { background: var(--cream-mid); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; margin-bottom: 16px; }
+  .mailto-row { display: flex; gap: 8px; margin-bottom: 5px; }
   .mailto-row:last-child { margin-bottom: 0; }
-  .mailto-label { color: var(--muted); min-width: 56px; font-size: 12px; font-weight: 500; }
+  .mailto-label { color: var(--muted); min-width: 52px; font-size: 12px; font-weight: 500; }
   .mailto-val { color: var(--navy-deep); font-size: 12px; }
-  .submit-btn {
-    display: block;
-    width: 100%;
-    text-align: center;
-    background: var(--navy);
-    color: var(--navy-light);
-    font-size: 14px;
-    font-weight: 500;
-    padding: 14px;
-    border-radius: 7px;
-    text-decoration: none;
-    transition: background 0.2s;
-    letter-spacing: 0.01em;
-  }
+  .submit-btn { display: block; width: 100%; text-align: center; background: var(--navy); color: var(--navy-light); font-size: 14px; font-weight: 500; padding: 14px; border-radius: 8px; text-decoration: none; transition: background 0.2s; }
   .submit-btn:hover { background: var(--navy-deep); }
-  .submit-note {
-    font-size: 12px;
-    color: var(--muted);
-    text-align: center;
-    margin-top: 14px;
-    font-weight: 300;
-  }
+  .submit-note { font-size: 12px; color: var(--muted); text-align: center; margin-top: 12px; font-weight: 300; }
 
-  /* FOOTER */
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 28px 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .footer-logo {
-    font-family: var(--serif);
-    font-size: 18px;
-    color: var(--navy-deep);
-    text-decoration: none;
-  }
-  footer p {
-    font-size: 12px;
-    color: var(--muted);
-    font-weight: 300;
-  }
+  footer { border-top: 1px solid var(--border); padding: 24px; text-align: center; }
+  .footer-logo { font-family: var(--serif); font-size: 20px; color: var(--navy-deep); text-decoration: none; display: block; margin-bottom: 8px; }
+  footer p { font-size: 12px; color: var(--muted); font-weight: 300; }
 
-  /* ANIMATIONS */
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(18px); }
+    from { opacity: 0; transform: translateY(14px); }
     to   { opacity: 1; transform: translateY(0); }
   }
-  .hero-label { animation: fadeUp 0.5s ease both; }
-  .hero h1    { animation: fadeUp 0.5s ease 0.1s both; }
-  .hero p     { animation: fadeUp 0.5s ease 0.2s both; }
-  .hero-actions { animation: fadeUp 0.5s ease 0.3s both; }
+  .search-label      { animation: fadeUp 0.4s ease both; }
+  .search-section h1 { animation: fadeUp 0.4s ease 0.08s both; }
+  .search-section > p{ animation: fadeUp 0.4s ease 0.16s both; }
+  .search-box        { animation: fadeUp 0.4s ease 0.22s both; }
+  .chips             { animation: fadeUp 0.4s ease 0.3s both; }
 
-  /* RESPONSIVE */
-  @media (max-width: 640px) {
-    nav { padding: 16px 20px; }
-    .nav-links { display: none; }
-    .hero { padding: 56px 24px 48px; }
-    .hero h1 { font-size: 36px; }
-    .how { padding: 56px 24px; }
-    .steps { grid-template-columns: 1fr; gap: 28px; }
-    .step-connector { display: none; }
-    .fairness { padding: 56px 24px; }
-    .fairness-inner { grid-template-columns: 1fr; gap: 36px; }
-    .submit { padding: 56px 24px; }
-    footer { flex-direction: column; gap: 12px; text-align: center; padding: 24px; }
+  @media (min-width: 768px) {
+    nav { padding: 20px 40px; }
+    .search-section { padding: 72px 40px 48px; }
+    .search-section h1 { font-size: 54px; }
+    .how { padding: 72px 40px; }
+    .steps { flex-direction: row; gap: 0; }
+    .step { flex-direction: column; border-bottom: none; border-right: 1px solid var(--border); padding: 0 32px 0 0; margin-right: 32px; flex: 1; }
+    .step:last-child { border-right: none; margin-right: 0; padding-right: 0; }
+    .fairness { padding: 72px 40px; }
+    .submit { padding: 72px 40px; }
   }
 </style>
 </head>
 <body>
 
+<div id="desktop-nudge">
+  <div class="nudge-inner">
+    <div class="nudge-text">
+      <h2>Ralph works best on your phone.</h2>
+      <p>Search for offers by typing or voice, tap a link, done. Point your camera at the QR code to open Ralph on mobile — or carry on here if you prefer.</p>
+      <button class="nudge-skip" onclick="dismissNudge()">Continue on this device →</button>
+    </div>
+    <div class="nudge-qr">
+      <div class="nudge-qr-box" id="qrcode"></div>
+      <p>Scan to open on mobile</p>
+    </div>
+  </div>
+</div>
+
 <nav>
   <a href="/" class="nav-logo">Ralph</a>
   <div class="nav-links">
     <a href="#how">How it works</a>
-    <a href="#fairness">Why Ralph</a>
     <a href="#submit" class="nav-cta">Submit a link</a>
   </div>
 </nav>
 
-<section class="hero">
-  <span class="hero-label">UK referral links, fairly shared</span>
+<section class="search-section">
+  <span class="search-label">UK referral links, fairly shared</span>
   <h1>Your referral link.<br><em>Finally</em> getting its turn.</h1>
-  <p>Ralph is a fair queue for real referral offers — submitted by real people, shown in honest rotation. No algorithms. No ads. Just your turn.</p>
-  <div class="hero-actions">
-    <a href="#submit" class="btn-primary">Submit a referral link</a>
-    <a href="#browse" class="btn-secondary">Browse offers</a>
+  <p>Type a brand name — or tap the mic and just say it.</p>
+
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Try Monzo, Freetrade, Chase…" autocomplete="off" autocorrect="off" spellcheck="false">
+    <button class="mic-btn" id="mic-btn" title="Search by voice">
+      <svg viewBox="0 0 24 24"><path d="M12 1a4 4 0 0 1 4 4v6a4 4 0 0 1-8 0V5a4 4 0 0 1 4-4zm7 9a1 1 0 0 1 1 1 8 8 0 0 1-7 7.94V21h2a1 1 0 0 1 0 2H9a1 1 0 0 1 0-2h2v-2.06A8 8 0 0 1 4 11a1 1 0 0 1 2 0 6 6 0 0 0 12 0 1 1 0 0 1 1-1z"/></svg>
+    </button>
+    <button class="search-go-btn" onclick="doSearch()">Search</button>
+  </div>
+
+  <div id="search-result"></div>
+
+  <div class="chips">
+    <span class="chip" onclick="fillSearch('Monzo')">💳 Monzo</span>
+    <span class="chip" onclick="fillSearch('Freetrade')">📈 Freetrade</span>
+    <span class="chip" onclick="fillSearch('Chase')">🏦 Chase</span>
+    <span class="chip" onclick="fillSearch('Wise')">🌍 Wise</span>
+    <span class="chip" onclick="fillSearch('Octopus Energy')">⚡ Octopus Energy</span>
   </div>
 </section>
 
@@ -418,57 +290,53 @@
   <div class="steps">
     <div class="step">
       <div class="step-num">01</div>
-      <h3>You submit</h3>
-      <p>Email your referral link to Ralph. One tap, nothing to fill in. Ralph adds it to the queue for that brand.</p>
-      <span class="step-connector">→</span>
+      <div class="step-body">
+        <h3>You submit</h3>
+        <p>Email your referral link to Ralph. One tap, nothing to fill in. Ralph adds it to the queue for that brand.</p>
+      </div>
     </div>
     <div class="step">
       <div class="step-num">02</div>
-      <h3>Ralph queues fairly</h3>
-      <p>Every link waits its turn. One live link per brand at a time. When it's had its run, the next person steps up.</p>
-      <span class="step-connector">→</span>
+      <div class="step-body">
+        <h3>Ralph queues fairly</h3>
+        <p>Every link waits its turn. One live link per brand at a time. When it's had its run, the next person steps up.</p>
+      </div>
     </div>
     <div class="step">
       <div class="step-num">03</div>
-      <h3>Someone clicks</h3>
-      <p>A visitor finds the offer they want, clicks through, and signs up. You get the referral. They get the reward.</p>
+      <div class="step-body">
+        <h3>Someone clicks</h3>
+        <p>A visitor finds the offer they want, clicks through, and signs up. You get the referral. They get the reward.</p>
+      </div>
     </div>
   </div>
 </section>
 
 <section class="fairness" id="fairness">
   <div class="fairness-inner">
-    <div>
-      <p class="section-label">Why Ralph</p>
-      <h2>No gaming. No bought positions. Just a fair queue.</h2>
-      <p>Most referral directories reward whoever shouts loudest. Ralph is built differently — every link gets the same honest chance.</p>
-    </div>
+    <p class="section-label">Why Ralph</p>
+    <h2>No gaming. Just a fair queue.</h2>
+    <p class="fairness-intro">Most referral directories reward whoever shouts loudest. Ralph is built differently — every link gets the same honest chance.</p>
     <div class="fairness-points">
       <div class="fairness-point">
-        <div class="fairness-icon">
-          <svg viewBox="0 0 16 16"><path d="M8 1l1.5 4.5H14l-3.7 2.7 1.4 4.3L8 9.8l-3.7 2.7 1.4-4.3L2 5.5h4.5z"/></svg>
-        </div>
-        <div class="fairness-point-text">
+        <div class="fairness-icon">🔁</div>
+        <div>
           <h4>One queue per brand</h4>
           <p>One link live at a time. Everyone else waits their fair turn.</p>
         </div>
       </div>
       <div class="fairness-point">
-        <div class="fairness-icon">
-          <svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6"/></svg>
-        </div>
-        <div class="fairness-point-text">
-          <h4>No paid prioritisation</h4>
-          <p>You cannot buy your way to the front. Not yet, anyway.</p>
+        <div class="fairness-icon">🎁</div>
+        <div>
+          <h4>Free for everyone</h4>
+          <p>Free to submit. Free to browse. Ralph earns when brands pay to be featured — not from you.</p>
         </div>
       </div>
       <div class="fairness-point">
-        <div class="fairness-icon">
-          <svg viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="2"/></svg>
-        </div>
-        <div class="fairness-point-text">
-          <h4>Free for everyone</h4>
-          <p>Free to submit. Free to browse. Ralph earns when brands pay to be featured — not from you.</p>
+        <div class="fairness-icon">🤝</div>
+        <div>
+          <h4>Real people, real offers</h4>
+          <p>Every link comes from someone who has used the product. No fake codes, no expired deals.</p>
         </div>
       </div>
     </div>
@@ -476,39 +344,19 @@
 </section>
 
 <section class="submit" id="submit">
-  <p class="section-label" style="text-align:center;">Submit a link</p>
+  <p class="section-label">Submit a link</p>
   <h2>Got a referral link?<br>Send it to Ralph.</h2>
   <p>No account needed. Email your link and the brand name — Ralph handles the rest. Takes ten seconds.</p>
-
   <div class="submit-card">
     <h3>One email. That's it.</h3>
-    <p>Tap the button below — your email app will open with everything pre-filled. Just drop in your referral link and hit send.</p>
+    <p>Tap below — your email app opens with everything pre-filled. Drop in your referral link and hit send.</p>
     <div class="mailto-preview">
-      <div class="mailto-row">
-        <span class="mailto-label">To</span>
-        <span class="mailto-val">hello@ralph.com</span>
-      </div>
-      <div class="mailto-row">
-        <span class="mailto-label">Subject</span>
-        <span class="mailto-val">Brand name — e.g. Monzo, Chase, Freetrade</span>
-      </div>
-      <div class="mailto-row">
-        <span class="mailto-label">Body</span>
-        <span class="mailto-val">Paste your referral link here</span>
-      </div>
+      <div class="mailto-row"><span class="mailto-label">To</span><span class="mailto-val">hello@ralph.com</span></div>
+      <div class="mailto-row"><span class="mailto-label">Subject</span><span class="mailto-val">Brand name — e.g. Monzo, Chase, Freetrade</span></div>
+      <div class="mailto-row"><span class="mailto-label">Body</span><span class="mailto-val">Paste your referral link here</span></div>
     </div>
     <a href="mailto:hello@ralph.com?subject=Brand%20name%20here&body=Paste%20your%20referral%20link%20here" class="submit-btn">Open email to Ralph →</a>
     <p class="submit-note">Ralph will confirm when your link is live in the queue.</p>
-  </div>
-</section>
-
-<section id="browse" style="background: var(--cream-mid); padding: 64px 40px; text-align: center;">
-  <p class="section-label">Browse offers</p>
-  <h2 style="font-family: var(--serif); font-size: 34px; font-weight: 400; color: var(--navy-deep); margin-bottom: 14px; line-height: 1.2;">Looking for a referral code?</h2>
-  <p style="font-size: 15px; color: var(--muted); max-width: 480px; margin: 0 auto 32px; font-weight: 300; line-height: 1.7;">Browse live offers from real people. Sign up and we'll send you relevant ones when they're fresh.</p>
-  <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
-    <a href="#" class="btn-primary">Browse all offers</a>
-    <a href="#" class="btn-secondary">Get offers by email</a>
   </div>
 </section>
 
@@ -517,5 +365,79 @@
   <p>UK referral links, fairly shared. No ads. No algorithms.</p>
 </footer>
 
+<script>
+  const RALPH_URL = 'https://jmcpublic.github.io/Ralph/';
+
+  function isDesktop() {
+    return window.innerWidth >= 1024 && !('ontouchstart' in window);
+  }
+  function dismissNudge() {
+    document.getElementById('desktop-nudge').classList.remove('visible');
+    sessionStorage.setItem('ralph_nudge_dismissed', '1');
+  }
+  window.addEventListener('load', function() {
+    if (isDesktop() && !sessionStorage.getItem('ralph_nudge_dismissed')) {
+      document.getElementById('desktop-nudge').classList.add('visible');
+      new QRCode(document.getElementById('qrcode'), {
+        text: RALPH_URL, width: 116, height: 116,
+        colorDark: '#042C53', colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.M
+      });
+    }
+  });
+
+  const OFFERS = {
+    'monzo':          { brand: 'Monzo', title: 'Get £5 when you join Monzo', desc: 'Open a free UK current account. Both you and your friend get £5 when you use a referral link.', url: '#' },
+    'freetrade':      { brand: 'Freetrade', title: 'Get a free share worth up to £100', desc: 'Open a Freetrade account and you both get a free share when you sign up via a referral link.', url: '#' },
+    'chase':          { brand: 'Chase', title: 'Chase current account referral', desc: '1% cashback on everyday spending for 12 months. No monthly fee.', url: '#' },
+    'wise':           { brand: 'Wise', title: 'Fee-free transfer with Wise', desc: 'Send your first transfer fee-free when you sign up via a referral link.', url: '#' },
+    'octopus energy': { brand: 'Octopus Energy', title: 'Get £50 credit with Octopus', desc: 'Switch your energy to Octopus and you both get £50 account credit.', url: '#' },
+    'octopus':        { brand: 'Octopus Energy', title: 'Get £50 credit with Octopus', desc: 'Switch your energy to Octopus and you both get £50 account credit.', url: '#' },
+  };
+
+  function fillSearch(term) {
+    document.getElementById('search-input').value = term;
+    doSearch();
+  }
+
+  function doSearch() {
+    const q = document.getElementById('search-input').value.trim().toLowerCase();
+    const resultEl = document.getElementById('search-result');
+    if (!q) { resultEl.classList.remove('visible'); return; }
+    const key = Object.keys(OFFERS).find(k => k.includes(q) || q.includes(k));
+    const offer = key ? OFFERS[key] : null;
+    if (offer) {
+      resultEl.innerHTML = `<div class="result-card"><div class="result-brand">${offer.brand}</div><div class="result-title">${offer.title}</div><div class="result-desc">${offer.desc}</div><a href="${offer.url}" class="result-link">Get this referral link →</a></div>`;
+    } else {
+      resultEl.innerHTML = `<div class="result-card"><p class="result-none">No live offer found for "<strong>${q}</strong>" right now — check back soon, or <a href="#submit" style="color:var(--navy)">submit your own</a>.</p></div>`;
+    }
+    resultEl.classList.add('visible');
+    resultEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  document.getElementById('search-input').addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
+
+  const micBtn = document.getElementById('mic-btn');
+  if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const recognition = new SR();
+    recognition.lang = 'en-GB';
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+    recognition.onresult = e => {
+      document.getElementById('search-input').value = e.results[0][0].transcript;
+      micBtn.classList.remove('listening');
+      doSearch();
+    };
+    recognition.onerror = () => micBtn.classList.remove('listening');
+    recognition.onend   = () => micBtn.classList.remove('listening');
+    micBtn.addEventListener('click', () => {
+      if (micBtn.classList.contains('listening')) { recognition.stop(); micBtn.classList.remove('listening'); }
+      else { recognition.start(); micBtn.classList.add('listening'); }
+    });
+  } else {
+    micBtn.style.display = 'none';
+  }
+</script>
 </body>
 </html>
