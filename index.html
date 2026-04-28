@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ralph</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:       #185FA5;
+    --navy-deep:  #042C53;
+    --navy-mid:   #378ADD;
+    --navy-light: #E6F1FB;
+    --cream:      #FDFCF8;
+    --cream-mid:  #F0EDE4;
+    --text:       #042C53;
+    --muted:      #4A6580;
+    --border:     rgba(24, 95, 165, 0.15);
+    --serif:      'EB Garamond', 'Palatino', serif;
+    --sans:       'DM Sans', system-ui, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--cream);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 40px;
+    border-bottom: 1px solid var(--border);
+    background: var(--cream);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 26px;
+    font-weight: 400;
+    color: var(--navy-deep);
+    letter-spacing: 0.02em;
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 28px; align-items: center; }
+  .nav-links a {
+    font-size: 14px;
+    color: var(--muted);
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--navy); }
+  .nav-cta {
+    font-size: 13px;
+    background: var(--navy);
+    color: var(--navy-light) !important;
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-weight: 500 !important;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--navy-deep) !important; color: white !important; }
+
+  /* HERO */
+  .hero {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 88px 40px 72px;
+    text-align: center;
+  }
+  .hero-label {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--navy);
+    background: var(--navy-light);
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 28px;
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: 54px;
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--navy-deep);
+    margin-bottom: 22px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--navy);
+  }
+  .hero p {
+    font-size: 18px;
+    font-weight: 300;
+    color: var(--muted);
+    max-width: 500px;
+    margin: 0 auto 36px;
+    line-height: 1.7;
+  }
+  .hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary {
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 500;
+    background: var(--navy);
+    color: var(--navy-light);
+    padding: 13px 28px;
+    border-radius: 7px;
+    text-decoration: none;
+    transition: background 0.2s;
+    letter-spacing: 0.01em;
+  }
+  .btn-primary:hover { background: var(--navy-deep); }
+  .btn-secondary {
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 400;
+    border: 1px solid var(--border);
+    color: var(--navy);
+    padding: 13px 28px;
+    border-radius: 7px;
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--navy); background: var(--navy-light); }
+
+  /* DIVIDER LINE */
+  .rule {
+    border: none;
+    border-top: 1px solid var(--border);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* HOW IT WORKS */
+  .how {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 72px 40px;
+  }
+  .section-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-bottom: 12px;
+  }
+  .how h2 {
+    font-family: var(--serif);
+    font-size: 34px;
+    font-weight: 400;
+    color: var(--navy-deep);
+    margin-bottom: 44px;
+    line-height: 1.2;
+  }
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .step { position: relative; }
+  .step-num {
+    font-family: var(--serif);
+    font-size: 38px;
+    font-weight: 400;
+    color: var(--navy-light);
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .step h3 {
+    font-family: var(--serif);
+    font-size: 19px;
+    font-weight: 500;
+    color: var(--navy-deep);
+    margin-bottom: 8px;
+  }
+  .step p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.65;
+    font-weight: 300;
+  }
+  .step-connector {
+    position: absolute;
+    top: 18px;
+    right: -18px;
+    color: var(--border);
+    font-size: 20px;
+  }
+
+  /* FAIRNESS BLOCK */
+  .fairness {
+    background: var(--navy-deep);
+    margin: 0;
+    padding: 72px 40px;
+  }
+  .fairness-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .fairness .section-label { color: var(--navy-light); opacity: 0.6; }
+  .fairness h2 {
+    font-family: var(--serif);
+    font-size: 34px;
+    font-weight: 400;
+    color: var(--cream);
+    line-height: 1.2;
+    margin-top: 10px;
+    margin-bottom: 16px;
+  }
+  .fairness p {
+    font-size: 15px;
+    color: rgba(230, 241, 251, 0.7);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+  .fairness-points { display: flex; flex-direction: column; gap: 16px; }
+  .fairness-point {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 16px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+  }
+  .fairness-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    background: rgba(55, 138, 221, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .fairness-icon svg { width: 16px; height: 16px; fill: var(--navy-mid); }
+  .fairness-point-text h4 {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--cream);
+    margin-bottom: 3px;
+  }
+  .fairness-point-text p {
+    font-size: 12px;
+    color: rgba(230, 241, 251, 0.55);
+    line-height: 1.5;
+  }
+
+  /* SUBMIT SECTION */
+  .submit {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 80px 40px;
+    text-align: center;
+  }
+  .submit h2 {
+    font-family: var(--serif);
+    font-size: 34px;
+    font-weight: 400;
+    color: var(--navy-deep);
+    margin-bottom: 14px;
+  }
+  .submit p {
+    font-size: 15px;
+    color: var(--muted);
+    margin-bottom: 36px;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+  .submit-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px;
+    text-align: left;
+  }
+  .submit-card h3 {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--navy-deep);
+    margin-bottom: 6px;
+  }
+  .submit-card p {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 22px;
+    font-weight: 300;
+    line-height: 1.6;
+  }
+  .mailto-preview {
+    background: var(--cream-mid);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 13px;
+    margin-bottom: 20px;
+    font-family: 'DM Sans', monospace;
+  }
+  .mailto-row { display: flex; gap: 8px; margin-bottom: 6px; }
+  .mailto-row:last-child { margin-bottom: 0; }
+  .mailto-label { color: var(--muted); min-width: 56px; font-size: 12px; font-weight: 500; }
+  .mailto-val { color: var(--navy-deep); font-size: 12px; }
+  .submit-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background: var(--navy);
+    color: var(--navy-light);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 14px;
+    border-radius: 7px;
+    text-decoration: none;
+    transition: background 0.2s;
+    letter-spacing: 0.01em;
+  }
+  .submit-btn:hover { background: var(--navy-deep); }
+  .submit-note {
+    font-size: 12px;
+    color: var(--muted);
+    text-align: center;
+    margin-top: 14px;
+    font-weight: 300;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 28px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-logo {
+    font-family: var(--serif);
+    font-size: 18px;
+    color: var(--navy-deep);
+    text-decoration: none;
+  }
+  footer p {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-label { animation: fadeUp 0.5s ease both; }
+  .hero h1    { animation: fadeUp 0.5s ease 0.1s both; }
+  .hero p     { animation: fadeUp 0.5s ease 0.2s both; }
+  .hero-actions { animation: fadeUp 0.5s ease 0.3s both; }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+    .hero { padding: 56px 24px 48px; }
+    .hero h1 { font-size: 36px; }
+    .how { padding: 56px 24px; }
+    .steps { grid-template-columns: 1fr; gap: 28px; }
+    .step-connector { display: none; }
+    .fairness { padding: 56px 24px; }
+    .fairness-inner { grid-template-columns: 1fr; gap: 36px; }
+    .submit { padding: 56px 24px; }
+    footer { flex-direction: column; gap: 12px; text-align: center; padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Ralph</a>
+  <div class="nav-links">
+    <a href="#how">How it works</a>
+    <a href="#fairness">Why Ralph</a>
+    <a href="#submit" class="nav-cta">Submit a link</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <span class="hero-label">UK referral links, fairly shared</span>
+  <h1>Your referral link.<br><em>Finally</em> getting its turn.</h1>
+  <p>Ralph is a fair queue for real referral offers — submitted by real people, shown in honest rotation. No algorithms. No ads. Just your turn.</p>
+  <div class="hero-actions">
+    <a href="#submit" class="btn-primary">Submit a referral link</a>
+    <a href="#browse" class="btn-secondary">Browse offers</a>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section class="how" id="how">
+  <p class="section-label">How it works</p>
+  <h2>Simple for everyone involved.</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <h3>You submit</h3>
+      <p>Email your referral link to Ralph. One tap, nothing to fill in. Ralph adds it to the queue for that brand.</p>
+      <span class="step-connector">→</span>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <h3>Ralph queues fairly</h3>
+      <p>Every link waits its turn. One live link per brand at a time. When it's had its run, the next person steps up.</p>
+      <span class="step-connector">→</span>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <h3>Someone clicks</h3>
+      <p>A visitor finds the offer they want, clicks through, and signs up. You get the referral. They get the reward.</p>
+    </div>
+  </div>
+</section>
+
+<section class="fairness" id="fairness">
+  <div class="fairness-inner">
+    <div>
+      <p class="section-label">Why Ralph</p>
+      <h2>No gaming. No bought positions. Just a fair queue.</h2>
+      <p>Most referral directories reward whoever shouts loudest. Ralph is built differently — every link gets the same honest chance.</p>
+    </div>
+    <div class="fairness-points">
+      <div class="fairness-point">
+        <div class="fairness-icon">
+          <svg viewBox="0 0 16 16"><path d="M8 1l1.5 4.5H14l-3.7 2.7 1.4 4.3L8 9.8l-3.7 2.7 1.4-4.3L2 5.5h4.5z"/></svg>
+        </div>
+        <div class="fairness-point-text">
+          <h4>One queue per brand</h4>
+          <p>One link live at a time. Everyone else waits their fair turn.</p>
+        </div>
+      </div>
+      <div class="fairness-point">
+        <div class="fairness-icon">
+          <svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6"/></svg>
+        </div>
+        <div class="fairness-point-text">
+          <h4>No paid prioritisation</h4>
+          <p>You cannot buy your way to the front. Not yet, anyway.</p>
+        </div>
+      </div>
+      <div class="fairness-point">
+        <div class="fairness-icon">
+          <svg viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="2"/></svg>
+        </div>
+        <div class="fairness-point-text">
+          <h4>Free for everyone</h4>
+          <p>Free to submit. Free to browse. Ralph earns when brands pay to be featured — not from you.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="submit" id="submit">
+  <p class="section-label" style="text-align:center;">Submit a link</p>
+  <h2>Got a referral link?<br>Send it to Ralph.</h2>
+  <p>No account needed. Email your link and the brand name — Ralph handles the rest. Takes ten seconds.</p>
+
+  <div class="submit-card">
+    <h3>One email. That's it.</h3>
+    <p>Tap the button below — your email app will open with everything pre-filled. Just drop in your referral link and hit send.</p>
+    <div class="mailto-preview">
+      <div class="mailto-row">
+        <span class="mailto-label">To</span>
+        <span class="mailto-val">hello@ralph.com</span>
+      </div>
+      <div class="mailto-row">
+        <span class="mailto-label">Subject</span>
+        <span class="mailto-val">Brand name — e.g. Monzo, Chase, Freetrade</span>
+      </div>
+      <div class="mailto-row">
+        <span class="mailto-label">Body</span>
+        <span class="mailto-val">Paste your referral link here</span>
+      </div>
+    </div>
+    <a href="mailto:hello@ralph.com?subject=Brand%20name%20here&body=Paste%20your%20referral%20link%20here" class="submit-btn">Open email to Ralph →</a>
+    <p class="submit-note">Ralph will confirm when your link is live in the queue.</p>
+  </div>
+</section>
+
+<section id="browse" style="background: var(--cream-mid); padding: 64px 40px; text-align: center;">
+  <p class="section-label">Browse offers</p>
+  <h2 style="font-family: var(--serif); font-size: 34px; font-weight: 400; color: var(--navy-deep); margin-bottom: 14px; line-height: 1.2;">Looking for a referral code?</h2>
+  <p style="font-size: 15px; color: var(--muted); max-width: 480px; margin: 0 auto 32px; font-weight: 300; line-height: 1.7;">Browse live offers from real people. Sign up and we'll send you relevant ones when they're fresh.</p>
+  <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+    <a href="#" class="btn-primary">Browse all offers</a>
+    <a href="#" class="btn-secondary">Get offers by email</a>
+  </div>
+</section>
+
+<footer>
+  <a href="/" class="footer-logo">Ralph</a>
+  <p>UK referral links, fairly shared. No ads. No algorithms.</p>
+</footer>
+
+</body>
+</html>
