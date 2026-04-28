@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ralph — Project Journal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:       #185FA5;
+    --navy-deep:  #042C53;
+    --navy-mid:   #378ADD;
+    --navy-light: #E6F1FB;
+    --cream:      #FDFCF8;
+    --cream-mid:  #F0EDE4;
+    --text:       #042C53;
+    --muted:      #4A6580;
+    --border:     rgba(24, 95, 165, 0.15);
+    --green:      #1a6e56;
+    --green-bg:   #e8f5f0;
+    --amber:      #854F0B;
+    --amber-bg:   #FAEEDA;
+    --font:       'Outfit', system-ui, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font);
+    background: var(--cream);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    padding: 40px 24px 80px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  /* HEADER */
+  .journal-header {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 48px;
+  }
+  .journal-header-top {
+    background: var(--navy-deep);
+    padding: 24px 28px;
+  }
+  .journal-header-top h1 {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--cream);
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+  }
+  .journal-header-top p {
+    font-size: 13px;
+    color: rgba(230,241,251,0.5);
+    font-weight: 300;
+  }
+  .journal-header-meta {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--border);
+    background: white;
+  }
+  .meta-cell {
+    padding: 14px 20px;
+    border-right: 1px solid var(--border);
+    font-size: 12px;
+  }
+  .meta-cell:last-child { border-right: none; }
+  .meta-label {
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    font-size: 10px;
+    font-weight: 500;
+    margin-bottom: 3px;
+  }
+  .meta-value { font-weight: 500; color: var(--navy-deep); font-size: 13px; }
+
+  /* ENTRY */
+  .entry {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 32px;
+    background: white;
+  }
+  .entry-header {
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--cream);
+  }
+  .entry-date {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--navy-deep);
+    letter-spacing: -0.01em;
+  }
+  .entry-badge {
+    font-size: 10px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .badge-launch { background: var(--green-bg); color: var(--green); }
+  .badge-design { background: var(--navy-light); color: var(--navy); }
+  .badge-thinking { background: var(--amber-bg); color: var(--amber); }
+
+  .entry-body { padding: 24px; }
+
+  /* SECTIONS */
+  .section { margin-bottom: 24px; }
+  .section:last-child { margin-bottom: 0; }
+  .section-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* ITEM LIST */
+  .items { display: flex; flex-direction: column; gap: 8px; }
+  .item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .item-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--navy-light);
+    border: 1.5px solid var(--navy);
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+  .item strong { color: var(--text); font-weight: 500; }
+
+  /* TWO COL GRID */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  /* ACHIEVEMENT PILL */
+  .achievement {
+    background: var(--green-bg);
+    border: 1px solid rgba(26,110,86,0.2);
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-size: 13px;
+    color: var(--green);
+    line-height: 1.5;
+    font-weight: 400;
+  }
+  .achievement strong { font-weight: 600; display: block; margin-bottom: 2px; font-size: 14px; }
+
+  /* IDEA PILL */
+  .idea {
+    background: var(--amber-bg);
+    border: 1px solid rgba(133,79,11,0.15);
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-size: 13px;
+    color: var(--amber);
+    line-height: 1.5;
+  }
+  .idea strong { font-weight: 600; display: block; margin-bottom: 2px; font-size: 14px; }
+
+  /* NEXT STEPS */
+  .next-steps { display: flex; flex-direction: column; gap: 8px; }
+  .next-step {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 10px 14px;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .next-step-num {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--navy);
+    background: var(--navy-light);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* FEELING BLOCK */
+  .feeling {
+    background: var(--navy-deep);
+    border-radius: 10px;
+    padding: 18px 20px;
+    font-size: 14px;
+    color: rgba(230,241,251,0.75);
+    font-weight: 300;
+    line-height: 1.7;
+    font-style: italic;
+  }
+
+  /* NAV */
+  .top-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+  }
+  .nav-logo {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--navy-deep);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+  .nav-back {
+    font-size: 13px;
+    color: var(--navy);
+    text-decoration: none;
+    font-weight: 400;
+    border: 1px solid var(--border);
+    padding: 7px 14px;
+    border-radius: 6px;
+    transition: background 0.2s;
+  }
+  .nav-back:hover { background: var(--navy-light); }
+
+  footer {
+    margin-top: 48px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 300;
+    border-top: 1px solid var(--border);
+    padding-top: 24px;
+  }
+
+  @media (max-width: 560px) {
+    .two-col { grid-template-columns: 1fr; }
+    .journal-header-meta { grid-template-columns: 1fr; }
+    .meta-cell { border-right: none; border-bottom: 1px solid var(--border); }
+    .meta-cell:last-child { border-bottom: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="top-nav">
+  <a href="index.html" class="nav-logo">Ralph</a>
+  <a href="index.html" class="nav-back">← Back to Ralph</a>
+</div>
+
+<div class="journal-header">
+  <div class="journal-header-top">
+    <h1>Project Journal</h1>
+    <p>A record of what was built, decided, and learned — session by session.</p>
+  </div>
+  <div class="journal-header-meta">
+    <div class="meta-cell">
+      <div class="meta-label">Project</div>
+      <div class="meta-value">Ralph</div>
+    </div>
+    <div class="meta-cell">
+      <div class="meta-label">Status</div>
+      <div class="meta-value">Live — early build</div>
+    </div>
+    <div class="meta-cell">
+      <div class="meta-label">Entries</div>
+      <div class="meta-value">1</div>
+    </div>
+  </div>
+</div>
+
+<!-- ENTRY 1 -->
+<div class="entry">
+  <div class="entry-header">
+    <span class="entry-date">28 April 2026 — Session 1</span>
+    <span class="entry-badge badge-launch">🚀 Launch day</span>
+  </div>
+  <div class="entry-body">
+
+    <div class="section">
+      <div class="section-title">What we built</div>
+      <div class="items">
+        <div class="item"><div class="item-dot"></div><span>Ralph live on the internet at <strong>jmcpublic.github.io/Ralph</strong> — a real URL, a real page</span></div>
+        <div class="item"><div class="item-dot"></div><span><strong>Mobile-first design</strong> with voice search — tap the mic, say a brand name, get a result instantly</span></div>
+        <div class="item"><div class="item-dot"></div><span><strong>Desktop QR code nudge</strong> — non-mobile visitors see a full-screen prompt with a QR code pointing to the mobile site</span></div>
+        <div class="item"><div class="item-dot"></div><span><strong>Smart not-found card</strong> — searching an unknown brand returns "No TSB link yet — be the first" with a pre-filled mailto button for that exact brand</span></div>
+        <div class="item"><div class="item-dot"></div><span><strong>Search chips</strong> — Monzo, Freetrade, Chase, Wise, Octopus Energy, TSB</span></div>
+        <div class="item"><div class="item-dot"></div><span><strong>Mic animation</strong> — sonar rings pulse outward and a Listening label appears so it is completely clear the mic is active</span></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Design decisions</div>
+      <div class="two-col">
+        <div class="item" style="flex-direction:column; gap:4px;">
+          <span style="font-size:12px; font-weight:600; color:var(--navy-deep); text-transform:uppercase; letter-spacing:0.06em;">Palette</span>
+          <span style="font-size:13px; color:var(--muted);">Navy & cream — Option C. #185FA5 primary, #042C53 deep, #FDFCF8 background.</span>
+        </div>
+        <div class="item" style="flex-direction:column; gap:4px;">
+          <span style="font-size:12px; font-weight:600; color:var(--navy-deep); text-transform:uppercase; letter-spacing:0.06em;">Font</span>
+          <span style="font-size:13px; color:var(--muted);">EB Garamond headings, DM Sans body. Outfit noted for a future redesign pass.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Product thinking</div>
+      <div class="items">
+        <div class="item"><div class="item-dot"></div><span>Identified <strong>ShareMyLink.co.uk</strong> as a comparable — concluded Ralph's differentiator is the fairness narrative and warm entry point, not the mechanic alone</span></div>
+        <div class="item"><div class="item-dot"></div><span>Ruled out <strong>WhatsApp Business API</strong> — Meta as gatekeeper is a strategic risk and cost is unjustified at this stage</span></div>
+        <div class="item"><div class="item-dot"></div><span>Solution: <strong>mobile-first web with voice search</strong> replicates the WhatsApp bot experience with no API dependency and no ongoing cost</span></div>
+        <div class="item"><div class="item-dot"></div><span>The <strong>not-found card</strong> turns a dead end into an acquisition moment — Holly becomes Michael</span></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Ideas parked — loyalty layer</div>
+      <div class="two-col">
+        <div class="idea"><strong>Piggyback message</strong>When Michael submits a link Ralph replies asking him to forward a ready-made Ralph introduction to his contacts. One tap, GDPR clean.</div>
+        <div class="idea"><strong>Draw mechanic</strong>Entries earned per contact who signs up via Michael's message. Free to enter, meaningful reward.</div>
+        <div class="idea"><strong>Retroactive reward</strong>When Ralph can afford prizes, go back to day-one sharers and include them. Early adopters feel seen.</div>
+        <div class="idea"><strong>Charity option</strong>Ralph randomly picks 3 smaller lesser-known charities. Michael chooses one. Differentiates Ralph from transactional directories.</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Skills learned today</div>
+      <div class="two-col">
+        <div class="achievement"><strong>GitHub account & repository</strong>Created from scratch. Navigated every setup option correctly.</div>
+        <div class="achievement"><strong>GitHub Pages</strong>Published a live website at a real URL. First time.</div>
+        <div class="achievement"><strong>File management on Windows</strong>Uncovered hidden extensions, renamed files correctly, solved the .html.html problem.</div>
+        <div class="achievement"><strong>Iterating on a live site</strong>Uploaded replacement files twice confidently. Each time the site improved.</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Next steps</div>
+      <div class="next-steps">
+        <div class="next-step"><div class="next-step-num">1</div><span>Build a backend so search results pull from a real live queue — not hardcoded demo data</span></div>
+        <div class="next-step"><div class="next-step-num">2</div><span>Set up a real email inbox for hello@ralph.com to receive link submissions</span></div>
+        <div class="next-step"><div class="next-step-num">3</div><span>Explore Outfit font in a full redesign pass when ready</span></div>
+        <div class="next-step"><div class="next-step-num">4</div><span>WhatsApp Business API when Ralph has revenue and volume to justify the cost</span></div>
+        <div class="next-step"><div class="next-step-num">5</div><span>Affiliate network integration — Awin etc. — as a future double-revenue layer alongside pay-per-click</span></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">How it felt</div>
+      <div class="feeling">
+        Went from zero to a live product on the internet in one session. Navigated every technical obstacle — file naming, GitHub Pages, hidden extensions — and kept going each time. The idea is real, the site is real, the queue mechanic is designed. That is not nothing. That is everything.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  Ralph Project Journal · Started April 2026 · <a href="index.html" style="color:var(--navy);">Back to Ralph</a>
+</footer>
+
+</body>
+</html>
