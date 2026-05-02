@@ -330,10 +330,10 @@
     <p>Tap below — your email app opens with everything pre-filled. Drop in your referral link and hit send.</p>
     <div class="mailto-preview">
       <div class="mailto-row"><span class="mailto-label">To</span><span class="mailto-val">ralph.shares.links@gmail.com</span></div>
-      <div class="mailto-row"><span class="mailto-label">Subject</span><span class="mailto-val">Brand name — e.g. Monzo, Chase, Freetrade</span></div>
-      <div class="mailto-row"><span class="mailto-val">Paste your referral link here</span></div>
+      <div class="mailto-row"><span class="mailto-label">Subject</span><span class="mailto-val">Type the brand name — e.g. Monzo, Chase</span></div>
+      <div class="mailto-row"><span class="mailto-label">Body</span><span class="mailto-val">Paste your referral link here</span></div>
     </div>
-    <a href="mailto:ralph.shares.links@gmail.com?subject=Brand%20name%20here&body=Paste%20your%20referral%20link%20here" class="submit-btn">Open email to Ralph →</a>
+    <a href="mailto:ralph.shares.links@gmail.com?subject=&body=Paste%20your%20referral%20link%20here" class="submit-btn">Open email to Ralph →</a>
     <p class="submit-note">Ralph will confirm when your link is live in the queue.</p>
   </div>
 </section>
@@ -453,6 +453,33 @@
     });
   } else {
     micBtn.style.display = 'none';
+  }
+
+  // ── NAV SUBMIT LINK FIX ─────────────────────────────────────
+  document.querySelectorAll('a[href="#submit"]').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      document.getElementById('submit').scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  // ── POST-SEND THANK YOU ─────────────────────────────────────
+  const submitBtn = document.querySelector('.submit-btn');
+  const submitCard = document.querySelector('.submit-card');
+  if (submitBtn && submitCard) {
+    submitBtn.addEventListener('click', function() {
+      setTimeout(function() {
+        submitCard.innerHTML = `
+          <div style="text-align:center;padding:20px 0;">
+            <div style="font-size:36px;margin-bottom:12px;">🎉</div>
+            <h3 style="font-family:var(--serif);font-size:22px;font-weight:400;color:var(--navy-deep);margin-bottom:8px;">Thanks — Ralph's got it.</h3>
+            <p style="font-size:14px;color:var(--muted);font-weight:300;line-height:1.6;margin-bottom:20px;">Your link will be added to the queue once Ralph receives your email. You'll get a confirmation when it goes live.</p>
+            <a href="#" onclick="location.reload(); return false;" style="display:inline-block;background:var(--navy);color:var(--navy-light);font-size:13px;font-weight:500;padding:10px 20px;border-radius:6px;text-decoration:none;margin-bottom:10px;">Submit another link →</a>
+            <br>
+            <a href="#" onclick="document.getElementById('search-input').focus(); document.querySelector('.search-section').scrollIntoView({behavior:'smooth'}); return false;" style="font-size:13px;color:var(--navy);text-decoration:underline;">Browse offers instead</a>
+          </div>`;
+      }, 300);
+    });
   }
 </script>
 </body>
