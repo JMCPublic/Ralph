@@ -132,12 +132,82 @@
     </div>
     <div class="meta-cell">
       <div class="meta-label">Status</div>
-      <div class="meta-value">Live — OB complete</div>
+      <div class="meta-value">Live — automation in progress</div>
     </div>
     <div class="meta-cell">
       <div class="meta-label">Entries</div>
-      <div class="meta-value">2</div>
+      <div class="meta-value">3</div>
     </div>
+  </div>
+</div>
+
+
+<!-- ENTRY 3 -->
+<div class="entry">
+  <div class="entry-header">
+    <span class="entry-date">2 May 2026 — Session 3</span>
+    <span class="entry-badge badge-build">⚙️ Automation &amp; testing</span>
+  </div>
+  <div class="entry-body">
+
+    <div class="section">
+      <div class="section-title">What was built</div>
+      <div class="ach-list">
+        <div class="ach-item"><div class="ach-dot">✓</div><div class="ach-text"><strong>Google Sheet queue created</strong> — "Ralph Queue" sheet set up with Date, Name, Referral Link, Status columns. One tab per brand.</div></div>
+        <div class="ach-item"><div class="ach-dot">✓</div><div class="ach-text"><strong>Apps Script written and deployed</strong> — script monitors the Ralph Gmail inbox every 5 minutes, reads subject line as brand name, extracts referral link from body, adds a row to the correct brand tab automatically.</div></div>
+        <div class="ach-item"><div class="ach-dot">✓</div><div class="ach-text"><strong>Trigger set up</strong> — Google Apps Script trigger fires every 5 minutes in the background. Fully automatic, no manual copying needed.</div></div>
+        <div class="ach-item"><div class="ach-dot">✓</div><div class="ach-text"><strong>Automation proven end-to-end</strong> — sent a Monzo test email, row appeared in the Monzo tab automatically. Submission → inbox → sheet working.</div></div>
+        <div class="ach-item"><div class="ach-dot">✓</div><div class="ach-text"><strong>Script upgraded</strong> — fixed to ignore Google no-reply and security alert emails. Only processes real referral submissions with a valid link in the body.</div></div>
+        <div class="ach-item"><div class="ach-dot">✓</div><div class="ach-text"><strong>Subject line pre-fill fixed</strong> — now opens blank so the person types the brand name themselves. No more "Brand name here" placeholder confusion.</div></div>
+        <div class="ach-item"><div class="ach-dot">✓</div><div class="ach-text"><strong>Post-send thank you screen added</strong> — after tapping the email button and pressing back, a thank you message appears with options to submit another link or browse offers.</div></div>
+        <div class="ach-item"><div class="ach-dot">✓</div><div class="ach-text"><strong>TSB trigger test sent</strong> — TSB test email sent to confirm the updated script and trigger are working correctly. Result to be confirmed next session.</div></div>
+      </div>
+    </div>
+
+    <hr class="entry-divider">
+
+    <div class="section">
+      <div class="section-title">Bugs found in testing</div>
+      <div class="ach-list">
+        <div class="ach-item"><div class="ach-dot amber">!</div><div class="ach-text"><strong>Script too greedy</strong> — original script picked up Google security alerts and no-reply emails, creating junk tabs in the sheet. Fixed with sender filtering.</div></div>
+        <div class="ach-item"><div class="ach-dot amber">!</div><div class="ach-text"><strong>Back button regression</strong> — new index.html broke the back-to-Ralph behaviour that was working before. To be fixed next session.</div></div>
+        <div class="ach-item"><div class="ach-dot amber">!</div><div class="ach-text"><strong>Account picker screen</strong> — extra Gmail account selection step appears before compose window opens. Unexpected friction. To investigate.</div></div>
+        <div class="ach-item"><div class="ach-dot amber">!</div><div class="ach-text"><strong>Body pre-fill deletable</strong> — "Paste your referral link here" can be deleted. Can't lock email body but need clearer instruction near the button.</div></div>
+        <div class="ach-item"><div class="ach-dot amber">!</div><div class="ach-text"><strong>Post-send on mobile</strong> — thank you screen only appears via back button, not automatically. Need a "press back to return to Ralph" hint near submit.</div></div>
+      </div>
+    </div>
+
+    <hr class="entry-divider">
+
+    <div class="section">
+      <div class="section-title">To do next session</div>
+      <div class="parked-list">
+        <div class="parked-item"><strong>Back button fix</strong> — restore back-to-Ralph behaviour broken by new HTML.</div>
+        <div class="parked-item"><strong>Body pre-fill instruction</strong> — add clear hint near submit: subject = brand name, body = referral link.</div>
+        <div class="parked-item"><strong>Post-send hint</strong> — "press back to return to Ralph" message near submit button.</div>
+        <div class="parked-item"><strong>Account picker</strong> — investigate extra Gmail step before compose opens.</div>
+        <div class="parked-item"><strong>Nav button</strong> — confirm whether "Submit a link" scroll fix worked.</div>
+        <div class="parked-item"><strong>Add TSB and Wise to search offers</strong> in the JS.</div>
+        <div class="parked-item"><strong>TSB trigger result</strong> — check Ralph Queue sheet for TSB tab.</div>
+        <div class="parked-item"><strong>Connect sheet to board</strong> — row 1 of each brand tab feeds the live link on the Ralph board.</div>
+      </div>
+    </div>
+
+    <hr class="entry-divider">
+
+    <div class="section">
+      <div class="section-title">Skills gained this session</div>
+      <div class="skills-grid">
+        <span class="skill-tag">Google Apps Script</span>
+        <span class="skill-tag">Setting up a time-driven trigger</span>
+        <span class="skill-tag">Authorising a Google script</span>
+        <span class="skill-tag">Gmail automation</span>
+        <span class="skill-tag">Google Sheets automation</span>
+        <span class="skill-tag">End-to-end automation testing</span>
+        <span class="skill-tag">Spotting script side effects</span>
+      </div>
+    </div>
+
   </div>
 </div>
 
