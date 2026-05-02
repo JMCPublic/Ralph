@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ralph — Project Journal</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
     --navy:       #185FA5;
@@ -19,248 +19,94 @@
     --border:     rgba(24, 95, 165, 0.15);
     --green:      #1a6e56;
     --green-bg:   #e8f5f0;
-    --amber:      #854F0B;
-    --amber-bg:   #FAEEDA;
-    --font:       'Outfit', system-ui, sans-serif;
+    --amber:      #b45309;
+    --amber-bg:   #fff8ed;
+    --serif:      'EB Garamond', 'Palatino', serif;
+    --sans:       'DM Sans', system-ui, sans-serif;
+    --mono:       'DM Mono', monospace;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
 
   body {
-    font-family: var(--font);
+    font-family: var(--sans);
     background: var(--cream);
     color: var(--text);
     font-size: 15px;
-    line-height: 1.7;
-    -webkit-font-smoothing: antialiased;
-    padding: 40px 24px 80px;
-    max-width: 800px;
+    line-height: 1.6;
+    padding: 32px 24px 64px;
+    max-width: 780px;
     margin: 0 auto;
-  }
-
-  /* HEADER */
-  .journal-header {
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    overflow: hidden;
-    margin-bottom: 48px;
-  }
-  .journal-header-top {
-    background: var(--navy-deep);
-    padding: 24px 28px;
-  }
-  .journal-header-top h1 {
-    font-size: 28px;
-    font-weight: 600;
-    color: var(--cream);
-    letter-spacing: -0.02em;
-    margin-bottom: 4px;
-  }
-  .journal-header-top p {
-    font-size: 13px;
-    color: rgba(230,241,251,0.5);
-    font-weight: 300;
-  }
-  .journal-header-meta {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    border-top: 1px solid var(--border);
-    background: white;
-  }
-  .meta-cell {
-    padding: 14px 20px;
-    border-right: 1px solid var(--border);
-    font-size: 12px;
-  }
-  .meta-cell:last-child { border-right: none; }
-  .meta-label {
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.07em;
-    font-size: 10px;
-    font-weight: 500;
-    margin-bottom: 3px;
-  }
-  .meta-value { font-weight: 500; color: var(--navy-deep); font-size: 13px; }
-
-  /* ENTRY */
-  .entry {
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    overflow: hidden;
-    margin-bottom: 32px;
-    background: white;
-  }
-  .entry-header {
-    padding: 16px 24px;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: var(--cream);
-  }
-  .entry-date {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--navy-deep);
-    letter-spacing: -0.01em;
-  }
-  .entry-badge {
-    font-size: 10px;
-    font-weight: 500;
-    padding: 3px 10px;
-    border-radius: 20px;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-  }
-  .badge-launch { background: var(--green-bg); color: var(--green); }
-  .badge-design { background: var(--navy-light); color: var(--navy); }
-  .badge-thinking { background: var(--amber-bg); color: var(--amber); }
-
-  .entry-body { padding: 24px; }
-
-  /* SECTIONS */
-  .section { margin-bottom: 24px; }
-  .section:last-child { margin-bottom: 0; }
-  .section-title {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
-    color: var(--navy);
-    margin-bottom: 12px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  /* ITEM LIST */
-  .items { display: flex; flex-direction: column; gap: 8px; }
-  .item {
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-    font-size: 14px;
-    color: var(--muted);
-    line-height: 1.5;
-  }
-  .item-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--navy-light);
-    border: 1.5px solid var(--navy);
-    flex-shrink: 0;
-    margin-top: 6px;
-  }
-  .item strong { color: var(--text); font-weight: 500; }
-
-  /* TWO COL GRID */
-  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-
-  /* ACHIEVEMENT PILL */
-  .achievement {
-    background: var(--green-bg);
-    border: 1px solid rgba(26,110,86,0.2);
-    border-radius: 10px;
-    padding: 14px 18px;
-    font-size: 13px;
-    color: var(--green);
-    line-height: 1.5;
-    font-weight: 400;
-  }
-  .achievement strong { font-weight: 600; display: block; margin-bottom: 2px; font-size: 14px; }
-
-  /* IDEA PILL */
-  .idea {
-    background: var(--amber-bg);
-    border: 1px solid rgba(133,79,11,0.15);
-    border-radius: 10px;
-    padding: 14px 18px;
-    font-size: 13px;
-    color: var(--amber);
-    line-height: 1.5;
-  }
-  .idea strong { font-weight: 600; display: block; margin-bottom: 2px; font-size: 14px; }
-
-  /* NEXT STEPS */
-  .next-steps { display: flex; flex-direction: column; gap: 8px; }
-  .next-step {
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-    padding: 10px 14px;
-    background: var(--cream);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    font-size: 13px;
-    color: var(--muted);
-  }
-  .next-step-num {
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--navy);
-    background: var(--navy-light);
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-
-  /* FEELING BLOCK */
-  .feeling {
-    background: var(--navy-deep);
-    border-radius: 10px;
-    padding: 18px 20px;
-    font-size: 14px;
-    color: rgba(230,241,251,0.75);
-    font-weight: 300;
-    line-height: 1.7;
-    font-style: italic;
+    -webkit-font-smoothing: antialiased;
   }
 
   /* NAV */
   .top-nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 36px;
   }
-  .nav-logo {
-    font-size: 22px;
-    font-weight: 600;
-    color: var(--navy-deep);
-    text-decoration: none;
-    letter-spacing: -0.02em;
-  }
-  .nav-back {
-    font-size: 13px;
-    color: var(--navy);
-    text-decoration: none;
-    font-weight: 400;
-    border: 1px solid var(--border);
-    padding: 7px 14px;
-    border-radius: 6px;
-    transition: background 0.2s;
-  }
+  .nav-logo { font-family: var(--serif); font-size: 24px; font-weight: 400; color: var(--navy-deep); text-decoration: none; }
+  .nav-back { font-size: 13px; color: var(--navy); text-decoration: none; font-weight: 400; border: 1px solid var(--border); padding: 7px 14px; border-radius: 6px; transition: background 0.2s; }
   .nav-back:hover { background: var(--navy-light); }
 
-  footer {
-    margin-top: 48px;
-    text-align: center;
-    font-size: 12px;
-    color: var(--muted);
-    font-weight: 300;
-    border-top: 1px solid var(--border);
-    padding-top: 24px;
-  }
+  /* JOURNAL HEADER */
+  .journal-header { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 40px; }
+  .journal-header-top { background: var(--navy-deep); color: white; padding: 20px 24px; }
+  .journal-header-top h1 { font-family: var(--serif); font-size: 28px; font-weight: 400; margin-bottom: 4px; }
+  .journal-header-top p { font-size: 13px; opacity: 0.55; font-family: var(--mono); }
+  .journal-header-meta { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--border); }
+  .meta-cell { padding: 12px 16px; border-right: 1px solid var(--border); font-size: 12px; }
+  .meta-cell:last-child { border-right: none; }
+  .meta-label { color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; font-size: 10px; margin-bottom: 3px; font-family: var(--mono); }
+  .meta-value { font-weight: 500; color: var(--text); }
+
+  /* ENTRY */
+  .entry { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 28px; }
+  .entry-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; background: var(--cream-mid); border-bottom: 1px solid var(--border); flex-wrap: wrap; gap: 8px; }
+  .entry-date { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+  .entry-badge { font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 10px; }
+  .badge-launch  { background: var(--green-bg);  color: var(--green); }
+  .badge-build   { background: var(--navy-light); color: var(--navy);  }
+  .badge-test    { background: var(--amber-bg);   color: var(--amber); }
+  .entry-body { padding: 20px; }
+
+  /* SECTIONS INSIDE ENTRY */
+  .section { margin-bottom: 24px; }
+  .section:last-child { margin-bottom: 0; }
+  .section-title { font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--navy); font-family: var(--mono); margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+
+  /* ACHIEVEMENT ITEMS */
+  .ach-list { display: flex; flex-direction: column; gap: 8px; }
+  .ach-item { display: flex; gap: 12px; align-items: flex-start; font-size: 13px; line-height: 1.5; }
+  .ach-dot { width: 18px; height: 18px; border-radius: 50%; background: var(--green-bg); color: var(--green); font-size: 10px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+  .ach-dot.amber { background: var(--amber-bg); color: var(--amber); }
+  .ach-dot.navy  { background: var(--navy-light); color: var(--navy); }
+  .ach-text { color: var(--muted); }
+  .ach-text strong { color: var(--text); font-weight: 500; }
+
+  /* SKILLS */
+  .skills-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+  .skill-tag { font-size: 12px; background: white; border: 1px solid var(--border); color: var(--navy); padding: 5px 12px; border-radius: 20px; font-weight: 400; }
+
+  /* DECISIONS */
+  .decision-list { display: flex; flex-direction: column; gap: 8px; }
+  .decision { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; font-size: 13px; }
+  .decision-label { font-size: 10px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--navy); font-family: var(--mono); margin-bottom: 4px; }
+  .decision-text { color: var(--muted); line-height: 1.5; }
+  .decision-text strong { color: var(--text); font-weight: 500; }
+
+  /* PARKING LOT */
+  .parked-list { display: flex; flex-direction: column; gap: 6px; }
+  .parked-item { font-size: 13px; color: var(--muted); padding: 8px 12px; background: white; border: 1px solid var(--border); border-radius: 6px; border-left: 3px solid var(--amber); }
+  .parked-item strong { color: var(--text); font-weight: 500; }
+
+  /* DIVIDER */
+  .entry-divider { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+
+  footer { margin-top: 48px; text-align: center; font-size: 12px; color: var(--muted); font-weight: 300; border-top: 1px solid var(--border); padding-top: 24px; }
 
   @media (max-width: 560px) {
-    .two-col { grid-template-columns: 1fr; }
     .journal-header-meta { grid-template-columns: 1fr; }
     .meta-cell { border-right: none; border-bottom: 1px solid var(--border); }
     .meta-cell:last-child { border-bottom: none; }
@@ -286,14 +132,98 @@
     </div>
     <div class="meta-cell">
       <div class="meta-label">Status</div>
-      <div class="meta-value">Live — early build</div>
+      <div class="meta-value">Live — OB complete</div>
     </div>
     <div class="meta-cell">
       <div class="meta-label">Entries</div>
-      <div class="meta-value">1</div>
+      <div class="meta-value">2</div>
     </div>
   </div>
 </div>
+
+
+<!-- ENTRY 2 -->
+<div class="entry">
+  <div class="entry-header">
+    <span class="entry-date">2 May 2026 — Session 2</span>
+    <span class="entry-badge badge-test">✅ OB live & tested</span>
+  </div>
+  <div class="entry-body">
+
+    <div class="section">
+      <div class="section-title">What was built</div>
+      <div class="ach-list">
+        <div class="ach-item">
+          <div class="ach-dot">✓</div>
+          <div class="ach-text"><strong>Gmail inbox created</strong> — ralph.shares.links@gmail.com is live and ready to receive submissions.</div>
+        </div>
+        <div class="ach-item">
+          <div class="ach-dot">✓</div>
+          <div class="ach-text"><strong>mailto updated across the whole site</strong> — all three instances (submit section preview, submit button, and not-found card in the JS) updated from hello@ralph.com to the real inbox.</div>
+        </div>
+        <div class="ach-item">
+          <div class="ach-dot">✓</div>
+          <div class="ach-text"><strong>End-to-end OB test completed</strong> — submitted a real link through the live site, email landed in the Gmail inbox. The full onboarding loop is proven.</div>
+        </div>
+        <div class="ach-item">
+          <div class="ach-dot">✓</div>
+          <div class="ach-text"><strong>Updated index.html deployed to GitHub</strong> — site is live with the real email address.</div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="entry-divider">
+
+    <div class="section">
+      <div class="section-title">Decisions made</div>
+      <div class="decision-list">
+        <div class="decision">
+          <div class="decision-label">Pre-fill placeholder</div>
+          <div class="decision-text">The "Brand name here" and "Paste your referral link here" pre-fill text is a guide, not a lock. People can write anywhere in the email — <strong>this is a feature, not a bug.</strong> No fix needed.</div>
+        </div>
+        <div class="decision">
+          <div class="decision-label">Email client breadth</div>
+          <div class="decision-text">The mailto link should open whatever the person has set as their default email app. Gmail-only behaviour during testing is likely a device/browser default setting, <strong>not a Ralph limitation.</strong> Flag to test on multiple devices.</div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="entry-divider">
+
+    <div class="section">
+      <div class="section-title">Bugs found in testing</div>
+      <div class="ach-list">
+        <div class="ach-item">
+          <div class="ach-dot amber">!</div>
+          <div class="ach-text"><strong>Subject line pre-fill not working correctly</strong> — shows "Brand name here" as literal text rather than the brand. Needs fixing in the mailto href.</div>
+        </div>
+        <div class="ach-item">
+          <div class="ach-dot amber">!</div>
+          <div class="ach-text"><strong>Nav "Submit a link" button does nothing</strong> — anchor link to #submit section not scrolling. Small fix needed.</div>
+        </div>
+        <div class="ach-item">
+          <div class="ach-dot amber">!</div>
+          <div class="ach-text"><strong>Post-send UX missing</strong> — after the email fires, the person is left in their email app with no way back. Need a thank-you / "got another link?" moment that returns them to the site.</div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="entry-divider">
+
+    <div class="section">
+      <div class="section-title">Skills gained this session</div>
+      <div class="skills-grid">
+        <span class="skill-tag">Creating a Gmail inbox for a product</span>
+        <span class="skill-tag">Updating live site files on GitHub</span>
+        <span class="skill-tag">End-to-end product testing</span>
+        <span class="skill-tag">Spotting real bugs vs user error</span>
+        <span class="skill-tag">Reading raw HTML on GitHub</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 
 <!-- ENTRY 1 -->
 <div class="entry">
@@ -304,85 +234,110 @@
   <div class="entry-body">
 
     <div class="section">
-      <div class="section-title">What we built</div>
-      <div class="items">
-        <div class="item"><div class="item-dot"></div><span>Ralph live on the internet at <strong>jmcpublic.github.io/Ralph</strong> — a real URL, a real page</span></div>
-        <div class="item"><div class="item-dot"></div><span><strong>Mobile-first design</strong> with voice search — tap the mic, say a brand name, get a result instantly</span></div>
-        <div class="item"><div class="item-dot"></div><span><strong>Desktop QR code nudge</strong> — non-mobile visitors see a full-screen prompt with a QR code pointing to the mobile site</span></div>
-        <div class="item"><div class="item-dot"></div><span><strong>Smart not-found card</strong> — searching an unknown brand returns "No TSB link yet — be the first" with a pre-filled mailto button for that exact brand</span></div>
-        <div class="item"><div class="item-dot"></div><span><strong>Search chips</strong> — Monzo, Freetrade, Chase, Wise, Octopus Energy, TSB</span></div>
-        <div class="item"><div class="item-dot"></div><span><strong>Mic animation</strong> — sonar rings pulse outward and a Listening label appears so it is completely clear the mic is active</span></div>
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="section-title">Design decisions</div>
-      <div class="two-col">
-        <div class="item" style="flex-direction:column; gap:4px;">
-          <span style="font-size:12px; font-weight:600; color:var(--navy-deep); text-transform:uppercase; letter-spacing:0.06em;">Palette</span>
-          <span style="font-size:13px; color:var(--muted);">Navy & cream — Option C. #185FA5 primary, #042C53 deep, #FDFCF8 background.</span>
+      <div class="section-title">What was built</div>
+      <div class="ach-list">
+        <div class="ach-item">
+          <div class="ach-dot">✓</div>
+          <div class="ach-text"><strong>Ralph went live on the internet</strong> — a real URL, a real product, publicly accessible: jmcpublic.github.io/Ralph/</div>
         </div>
-        <div class="item" style="flex-direction:column; gap:4px;">
-          <span style="font-size:12px; font-weight:600; color:var(--navy-deep); text-transform:uppercase; letter-spacing:0.06em;">Font</span>
-          <span style="font-size:13px; color:var(--muted);">EB Garamond headings, DM Sans body. Outfit noted for a future redesign pass.</span>
+        <div class="ach-item">
+          <div class="ach-dot">✓</div>
+          <div class="ach-text"><strong>GitHub account and repository created</strong> — from scratch, no prior experience.</div>
+        </div>
+        <div class="ach-item">
+          <div class="ach-dot">✓</div>
+          <div class="ach-text"><strong>Full homepage built and deployed</strong> — navy &amp; cream design, search with voice input, chip shortcuts, How it works, Why Ralph, and Submit sections.</div>
+        </div>
+        <div class="ach-item">
+          <div class="ach-dot">✓</div>
+          <div class="ach-text"><strong>Voice search added</strong> — tap the mic, say a brand name, Ralph finds it. en-GB language set.</div>
+        </div>
+        <div class="ach-item">
+          <div class="ach-dot">✓</div>
+          <div class="ach-text"><strong>Desktop QR code nudge added</strong> — desktop visitors see a QR code to open Ralph on mobile instead.</div>
+        </div>
+        <div class="ach-item">
+          <div class="ach-dot">✓</div>
+          <div class="ach-text"><strong>Not-found card with smart mailto</strong> — searching a brand Ralph doesn't have yet shows a one-tap submit prompt for that exact brand.</div>
+        </div>
+        <div class="ach-item">
+          <div class="ach-dot">✓</div>
+          <div class="ach-text"><strong>Architecture & monetisation document built</strong> — redirect toll gate, pay-per-click pre-auth, and tolled link landscape all documented in ralph_architecture.html.</div>
+        </div>
+        <div class="ach-item">
+          <div class="ach-dot">✓</div>
+          <div class="ach-text"><strong>This project journal started</strong> — session-by-session case notes, decisions, skills, and parking lot all in one place.</div>
         </div>
       </div>
     </div>
 
+    <hr class="entry-divider">
+
     <div class="section">
-      <div class="section-title">Product thinking</div>
-      <div class="items">
-        <div class="item"><div class="item-dot"></div><span>Identified <strong>ShareMyLink.co.uk</strong> as a comparable — concluded Ralph's differentiator is the fairness narrative and warm entry point, not the mechanic alone</span></div>
-        <div class="item"><div class="item-dot"></div><span>Ruled out <strong>WhatsApp Business API</strong> — Meta as gatekeeper is a strategic risk and cost is unjustified at this stage</span></div>
-        <div class="item"><div class="item-dot"></div><span>Solution: <strong>mobile-first web with voice search</strong> replicates the WhatsApp bot experience with no API dependency and no ongoing cost</span></div>
-        <div class="item"><div class="item-dot"></div><span>The <strong>not-found card</strong> turns a dead end into an acquisition moment — Holly becomes Michael</span></div>
+      <div class="section-title">Design decisions made</div>
+      <div class="decision-list">
+        <div class="decision">
+          <div class="decision-label">Colour & typography</div>
+          <div class="decision-text">Navy deep (#042C53) and cream (#FDFCF8). EB Garamond serif for headings, DM Sans for body. <strong>Outfit font noted as a future alternative</strong> — cleaner, modern fintech feel.</div>
+        </div>
+        <div class="decision">
+          <div class="decision-label">Branding</div>
+          <div class="decision-text">Product name: <strong>Ralph Shares Links</strong> — big RALPH, small "Shares Links" as a strapline. Test inbox: ralph.shares.links@gmail.com.</div>
+        </div>
+        <div class="decision">
+          <div class="decision-label">Hosting</div>
+          <div class="decision-text"><strong>GitHub Pages over Webflow.</strong> Own and control the data. Open, exportable, no third-party lock-in.</div>
+        </div>
+        <div class="decision">
+          <div class="decision-label">Onboarding (OBv3)</div>
+          <div class="decision-text">Person A submits via mailto pre-fill — one tap, no form, no account. Ralph receives, queues. <strong>GDPR clean</strong> — Ralph never stores contact email addresses.</div>
+        </div>
+        <div class="decision">
+          <div class="decision-label">Opportunity Mechanism (OMv3)</div>
+          <div class="decision-text">One queue per product, one live link at a time. Opportunity counted on product card click. Budget −1 per visit. Rotation at zero. Solidarity lift and paid promotion ready for later.</div>
+        </div>
+        <div class="decision">
+          <div class="decision-label">Monetisation (MOv3 — agreed so far)</div>
+          <div class="decision-text">Michael is free. Revenue from brands. Two-tier queue: brand featured slot + Michael's link queue inside brand card. One queue engine, two tiers. Pay-per-click via Ralph's own redirect.</div>
+        </div>
       </div>
     </div>
 
+    <hr class="entry-divider">
+
     <div class="section">
-      <div class="section-title">Ideas parked — loyalty layer</div>
-      <div class="two-col">
-        <div class="idea"><strong>Piggyback message</strong>When Michael submits a link Ralph replies asking him to forward a ready-made Ralph introduction to his contacts. One tap, GDPR clean.</div>
-        <div class="idea"><strong>Draw mechanic</strong>Entries earned per contact who signs up via Michael's message. Free to enter, meaningful reward.</div>
-        <div class="idea"><strong>Retroactive reward</strong>When Ralph can afford prizes, go back to day-one sharers and include them. Early adopters feel seen.</div>
-        <div class="idea"><strong>Charity option</strong>Ralph randomly picks 3 smaller lesser-known charities. Michael chooses one. Differentiates Ralph from transactional directories.</div>
+      <div class="section-title">Skills gained this session</div>
+      <div class="skills-grid">
+        <span class="skill-tag">Creating a GitHub account</span>
+        <span class="skill-tag">Creating a GitHub repository</span>
+        <span class="skill-tag">Uploading files to GitHub</span>
+        <span class="skill-tag">Publishing via GitHub Pages</span>
+        <span class="skill-tag">Renaming files correctly on Windows</span>
+        <span class="skill-tag">Showing file extensions in Windows</span>
+        <span class="skill-tag">Previewing HTML locally</span>
+        <span class="skill-tag">Iterating a live site by uploading new versions</span>
+        <span class="skill-tag">Product thinking — spotting differentiation</span>
+        <span class="skill-tag">Designing a GDPR-clean onboarding flow</span>
       </div>
     </div>
 
-    <div class="section">
-      <div class="section-title">Skills learned today</div>
-      <div class="two-col">
-        <div class="achievement"><strong>GitHub account & repository</strong>Created from scratch. Navigated every setup option correctly.</div>
-        <div class="achievement"><strong>GitHub Pages</strong>Published a live website at a real URL. First time.</div>
-        <div class="achievement"><strong>File management on Windows</strong>Uncovered hidden extensions, renamed files correctly, solved the .html.html problem.</div>
-        <div class="achievement"><strong>Iterating on a live site</strong>Uploaded replacement files twice confidently. Each time the site improved.</div>
-      </div>
-    </div>
+    <hr class="entry-divider">
 
     <div class="section">
-      <div class="section-title">Next steps</div>
-      <div class="next-steps">
-        <div class="next-step"><div class="next-step-num">1</div><span>Build a backend so search results pull from a real live queue — not hardcoded demo data</span></div>
-        <div class="next-step"><div class="next-step-num">2</div><span>Set up a real email inbox for hello@ralph.com to receive link submissions</span></div>
-        <div class="next-step"><div class="next-step-num">3</div><span>Explore Outfit font in a full redesign pass when ready</span></div>
-        <div class="next-step"><div class="next-step-num">4</div><span>WhatsApp Business API when Ralph has revenue and volume to justify the cost</span></div>
-        <div class="next-step"><div class="next-step-num">5</div><span>Affiliate network integration — Awin etc. — as a future double-revenue layer alongside pay-per-click</span></div>
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="section-title">How it felt</div>
-      <div class="feeling">
-        Went from zero to a live product on the internet in one session. Navigated every technical obstacle — file naming, GitHub Pages, hidden extensions — and kept going each time. The idea is real, the site is real, the queue mechanic is designed. That is not nothing. That is everything.
+      <div class="section-title">Parking lot — ideas for later</div>
+      <div class="parked-list">
+        <div class="parked-item"><strong>Outfit font</strong> — explore as alternative to EB Garamond when ready for a redesign pass.</div>
+        <div class="parked-item"><strong>Splash page advert</strong> — first page Holly sees could carry a sponsored advert. Explore after core mechanics proven.</div>
+        <div class="parked-item"><strong>Loyalty layer</strong> — piggyback message, draw entries per referral, retroactive day-one rewards, charity donation choice.</div>
+        <div class="parked-item"><strong>Affiliate network integration</strong> — Awin etc. alongside Ralph's own redirect. Double revenue per click. Explore when Ralph has volume.</div>
+        <div class="parked-item"><strong>Ralph's own redirect</strong> — ralph.com/go/abc123 in production. Bitly in test phase. Build after conversation test passes.</div>
       </div>
     </div>
 
   </div>
 </div>
 
-<footer>
-  Ralph Project Journal · Started April 2026 · <a href="index.html" style="color:var(--navy);">Back to Ralph</a>
-</footer>
+<footer>Ralph — UK referral links, fairly shared. Journal started 28 April 2026.</footer>
 
 </body>
 </html>
